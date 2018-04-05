@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Dimensions, StyleSheet, Image, Platform } from 'react-native';
+import { View, Dimensions, StyleSheet, Image, Platform, DeviceEventEmitter } from 'react-native';
 import PropTypes from 'prop-types';
 import ChatBubble from './ChatBubble/ChatBubble';
 import Chat from './Chat/Chat';
@@ -51,10 +51,12 @@ export default class LiveChat extends Component {
 
   openChat = () => {
     this.setState({ isChatOn: true });
+    DeviceEventEmitter.emit('onChatVisibilityChanged',this.state.isChatOn)
   };
 
   closeChat = () => {
     this.setState({ isChatOn: false });
+    DeviceEventEmitter.emit('onChatVisibilityChanged',this.state.isChatOn)
   };
 
   render() {
