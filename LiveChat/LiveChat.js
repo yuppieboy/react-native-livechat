@@ -49,6 +49,15 @@ export default class LiveChat extends Component {
     });
   }
 
+
+  componentDidMount() {
+    visitorSDK.on('new_message', newMessage => {
+      if (!this.state.isChatOn) {
+        DeviceEventEmitter.emit('onNewMessage')
+      }
+    })
+  }
+
   openChat = () => {
     this.setState({ isChatOn: true });
     DeviceEventEmitter.emit('onChatVisibilityChanged',this.state.isChatOn)
